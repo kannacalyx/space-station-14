@@ -1,0 +1,70 @@
+- type: randomHumanoidSettings
+  id: BaseYapperNPC
+  parent: EventHumanoid
+  components:
+    - type: RandomHumanoidAppearance
+    - type: Vocalizer
+      maxVocalizeInterval: 25
+      minVocalizeInterval: 0 # super chatty
+    - type: RadioVocalizer
+      radioAttemptChance: 0.1
+    - type: ActiveListener
+    - type: ParrotListener
+    - type: ParrotMemory
+      learnChance: 0.7
+      learnCooldown: 10
+      maxEntryLength: 9999
+      minEntryLength: 1
+      maxSpeechMemory: 5000
+
+- type: randomHumanoidSettings
+  id: HostileYapper
+  parent: BaseYapperNPC
+  components:
+    - type: NpcFactionMember
+      factions:
+        - Syndicate
+    - type: InputMover
+    - type: MobMover
+    - type: HTN
+      rootTask:
+        task: SimpleHumanoidHostileCompound
+
+- type: randomHumanoidSettings
+  id: FriendlyYapper
+  parent: BaseYapperNPC
+  components:
+    - type: NpcFactionMember
+      factions:
+        - NanoTrasen
+    - type: InputMover
+    - type: MobMover
+    - type: HTN
+      rootTask:
+        task: SimpleHumanoidHostileCompound
+
+
+
+
+
+- type: entity
+  id: RandomFriendlyYapperSpawner
+  name: Yapping NPC
+  suffix: Friendly AI
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: full
+  - type: RandomHumanoidSpawner
+    settings: FriendlyYapper
+
+- type: entity
+  id: RandomHostileYapperSpawner
+  name: Yapping NPC
+  suffix: Hostile AI
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: full
+  - type: RandomHumanoidSpawner
+    settings: HostileYapper
